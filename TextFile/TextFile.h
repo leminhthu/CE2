@@ -30,6 +30,6 @@ public:
 	void writeToFile(std::string);
 	std::string toString();
 	std::string retrieveFileName() const;
-
+	void sortAllCommands();
 };
 

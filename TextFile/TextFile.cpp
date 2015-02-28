@@ -72,3 +72,7 @@ std::string TextFile::toString(){
 std::string TextFile::retrieveFileName() const{
 	return fileName;
 }
+
+void TextFile::sortAllCommands(){
+
+}
