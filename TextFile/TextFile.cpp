@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 #include <string>
 #include <vector>
 #include "TextFile.h"
@@ -74,5 +75,5 @@ std::string TextFile::retrieveFileName() const{
 }
 
 void TextFile::sortAllCommands(){
-
+	std::sort(fileContent.begin(), fileContent.end());
 }
