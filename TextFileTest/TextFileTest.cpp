@@ -55,15 +55,16 @@ namespace TextFileTest
 			Assert::AreEqual(expectedOutput, actualOutput);
 		}
 
-		TEST_METHOD(SearchTest){
-			//test whether the function can sort lines of differnt lengths)
+		TEST_METHOD(SearchTest1){
+			
 			TextFile testFile("testFile");
 			testFile.addCommand("a little fox");
 			testFile.addCommand("a big cat");
+			testFile.addCommand("2 cats fight");
 
 			std::string actualOutput = testFile.searchKeyWord("cat");
 
-			std::string expectedOutput = { "a big cat" };
+			std::string expectedOutput = { "a big cat\n2 cats fight\n" };
 			Assert::AreEqual(expectedOutput, actualOutput);
 		}
 	};

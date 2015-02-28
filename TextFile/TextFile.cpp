@@ -79,6 +79,14 @@ void TextFile::sortAllCommands(){
 }
 
 std::string TextFile::searchKeyWord(std::string keyWord){
-	std::string lineWithKeyWord;
-	return lineWithKeyWord;
+	std::string searchResults;
+
+	for (int i = 0; i < fileContent.size(); i++){
+		std::size_t posKeyWord = fileContent[i].find(keyWord);
+		if (posKeyWord < fileContent[i].size()){
+			searchResults = searchResults + fileContent[i] + "\n";
+		}
+	}
+	
+	return searchResults;
 }
