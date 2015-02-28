@@ -108,7 +108,8 @@ void processCommand(TextFile& currentFile, std::string userInput){
 
 	else
 	if (command == "delete"){
-		processCommandDelete(currentFile, userInput);
+		std::string lineNumber = extractContent(userInput);
+		processCommandDelete(currentFile, lineNumber);
 	}
 
 	else
@@ -134,18 +135,16 @@ void processCommand(TextFile& currentFile, std::string userInput){
 
 std::string extractContent(std::string userInput){
 	size_t firstSpace = userInput.find_first_of(" ");
-	size_t firstCharofLineContent = firstSpace + 1;
-	size_t lengthOfLineContent = userInput.size() - firstSpace;
+	size_t firstCharofContent = firstSpace + 1;
+	size_t lengthOfContent = userInput.size() - firstSpace;
 
-	std::string content = userInput.substr(firstCharofLineContent, lengthOfLineContent);
+	std::string content = userInput.substr(firstCharofContent, lengthOfContent);
 	return content;
 }
 
 void processCommandAdd(TextFile& currentFile, std::string lineContent){
 	std::string fileName = currentFile.retrieveFileName();
-
 	currentFile.addCommand(lineContent);
-
 	printOutcomeforAdded(fileName, lineContent);
 }
 
@@ -157,13 +156,9 @@ void processCommandDisplay(TextFile& currentFile){
 		printOutcomeforCantDisplay(fileName);
 }
 
-void processCommandDelete(TextFile& currentFile, std::string userInput){
-	size_t firstSpace = userInput.find_first_of(" ");
-	size_t firstCharofLineContent = firstSpace + 1;
-	size_t lengthOfLineContent = userInput.size() - firstSpace;
-	std::string lineNumber = userInput.substr(firstCharofLineContent, lengthOfLineContent);
+void processCommandDelete(TextFile& currentFile, std::string lineNumber){
 	int lineNum = std::stoi(lineNumber);
-
+	
 	std::string lineContent;
 	std::string fileName = currentFile.retrieveFileName();
 	bool isDeleted = currentFile.deleteCommand(lineNum, lineContent);
