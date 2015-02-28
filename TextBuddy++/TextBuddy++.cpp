@@ -15,17 +15,22 @@ the current file content will overwrite those with the same name created previou
 std::string requestFileNameFromUser(int, char *[]);
 void createTextFile(std::string);
 void carryOutOperations(TextFile&);
+std::string extractContent(std::string);
 void processCommand(TextFile&, std::string);
 void processCommandAdd(TextFile&, std::string);
 void processCommandDisplay(TextFile&);
 void processCommandDelete(TextFile&, std::string);
 void processCommandClear(TextFile&);
 void processCommandExit();
+void processCommandSort(TextFile&);
+void processCommandSearch(TextFile&, std::string keyWord);
 void printOutcomeforAdded(std::string, std::string);
 void printOutcomeforCantDisplay(std::string);
 void printOutcomeforCantDelete(std::string);
 void printOutcomeforDeleted(std::string, std::string);
 void printOutcomeforClear(std::string);
+void printOutcomeforSorted(std::string);
+void printOutcomeforSearch(std::string, std::string, std::string);
 
 bool continueOperation = true;
 
@@ -92,7 +97,8 @@ void processCommand(TextFile& currentFile, std::string userInput){
 	in >> command;
 
 	if (command == "add"){
-		processCommandAdd(currentFile, userInput);
+		std::string content = extractContent(userInput);
+		processCommandAdd(currentFile, content);
 	}
 
 	else
@@ -111,19 +117,33 @@ void processCommand(TextFile& currentFile, std::string userInput){
 	}
 
 	else
+	if (command == "sort"){
+		processCommandSort(currentFile);
+	}
+
+	else
+	if (command == "search"){
+		std::string content = extractContent(userInput);
+		processCommandSearch(currentFile, content);
+	}
+	else
 	if (command == "exit"){
 		processCommandExit();
 	}
 }
 
-void processCommandAdd(TextFile& currentFile, std::string userInput){
-	std::string fileName = currentFile.retrieveFileName();
-
+std::string extractContent(std::string userInput){
 	size_t firstSpace = userInput.find_first_of(" ");
 	size_t firstCharofLineContent = firstSpace + 1;
 	size_t lengthOfLineContent = userInput.size() - firstSpace;
 
-	std::string lineContent = userInput.substr(firstCharofLineContent, lengthOfLineContent);
+	std::string content = userInput.substr(firstCharofLineContent, lengthOfLineContent);
+	return content;
+}
+
+void processCommandAdd(TextFile& currentFile, std::string lineContent){
+	std::string fileName = currentFile.retrieveFileName();
+
 	currentFile.addCommand(lineContent);
 
 	printOutcomeforAdded(fileName, lineContent);
@@ -168,6 +188,18 @@ void processCommandExit(){
 	continueOperation = false;
 }
 
+void processCommandSort(TextFile& currentFile){
+	std::string fileName = currentFile.retrieveFileName();
+	currentFile.sortAllCommands();
+	printOutcomeforSorted(fileName);
+}
+
+void processCommandSearch(TextFile& currentFile, std::string keyWord){
+	std::string fileName = currentFile.retrieveFileName();
+	std::string searchResults = currentFile.searchKeyWord(keyWord);
+	printOutcomeforSearch(fileName, keyWord, searchResults);
+}
+
 void printOutcomeforAdded(std::string fileName, std::string lineContent){
 	std::cout << "added to " << fileName << ": \"" << lineContent << "\"" << std::endl;
 }
@@ -186,4 +218,13 @@ void printOutcomeforClear(std::string fileName){
 
 void printOutcomeforCantDisplay(std::string fileName){
 	std::cout << fileName << " is empty" << std::endl;
+}
+
+void printOutcomeforSorted(std::string fileName){
+	std::cout << "sorted " << fileName << " in alphabetical order" << std::endl;
+}
+
+void printOutcomeforSearch(std::string fileName, std::string keyWord, std::string searchResults){
+	std::cout << "In " << fileName << ", " << "search results for " << keyWord << " is:" << std::endl;
+	std::cout << searchResults;
 }
