@@ -3,8 +3,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace TextFileTest
-{		
+namespace TextFileTest{		
 	TEST_CLASS(TextFileTest){
 	public:
 		
@@ -24,7 +23,7 @@ namespace TextFileTest
 		}
 
 		TEST_METHOD(SortTest2){
-		//when the inital letters are the same, test whether the function manaage to sort according to the 2nd letter in line
+		//when the inital letters are the same, test whether the function manage to sort according to the 2nd letter in line
 			TextFile testFile("testFile");
 			testFile.addCommand("ab");
 			testFile.addCommand("ac");
@@ -40,7 +39,7 @@ namespace TextFileTest
 		}
 
 		TEST_METHOD(SortTest3){
-		//test whether the function can sort lines of differnt lengths)
+		//test whether the function can sort lines of different lengths)
 			TextFile testFile("testFile");
 			testFile.addCommand("abb");
 			testFile.addCommand("d");
