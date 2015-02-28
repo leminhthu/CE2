@@ -31,5 +31,6 @@ public:
 	std::string toString();
 	std::string retrieveFileName() const;
 	void sortAllCommands();
+	std::string searchKeyWord(std::string keyWord);
 };
 

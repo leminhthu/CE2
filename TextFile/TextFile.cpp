@@ -77,3 +77,8 @@ std::string TextFile::retrieveFileName() const{
 void TextFile::sortAllCommands(){
 	std::sort(fileContent.begin(), fileContent.end());
 }
+
+std::string TextFile::searchKeyWord(std::string keyWord){
+	std::string lineWithKeyWord;
+	return lineWithKeyWord;
+}
