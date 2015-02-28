@@ -67,5 +67,17 @@ namespace TextFileTest
 			std::string expectedOutput = { "a big cat\n2 cats fight\n" };
 			Assert::AreEqual(expectedOutput, actualOutput);
 		}
+
+		TEST_METHOD(SearchTest2){
+
+			TextFile testFile("testFile");
+			testFile.addCommand("a little fox");
+			testFile.addCommand("a big car");
+
+			std::string actualOutput = testFile.searchKeyWord("cat");
+
+			std::string expectedOutput = { "key word cannot be found\n" };
+			Assert::AreEqual(expectedOutput, actualOutput);
+		}
 	};
 }

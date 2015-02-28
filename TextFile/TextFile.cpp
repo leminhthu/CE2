@@ -88,5 +88,8 @@ std::string TextFile::searchKeyWord(std::string keyWord){
 		}
 	}
 	
+	if (searchResults.empty()){
+		searchResults = "key word cannot be found\n";
+	}
 	return searchResults;
 }
